@@ -8,12 +8,13 @@ $yelp_data_json = '{"businesses": [{"id": "2vpflvpjxG5SbE2aSScg3Q", "alias": "pa
 
 /* This data is returned with the following url: */
 
-/* https://maps.googleapis.com/maps/api/place/details/json?fields=rating%2Cuser_ratings_total&place_id=ChIJs23l-VBSwYkRKMloJqRCi08&key=YOUR_API_KEY_HERE */
+/* https://maps.googleapis.com/maps/api/place/details/json?fields=rating%2Cuser_ratings_total%2Curl&place_id=ChIJs23l-VBSwYkRKMloJqRCi08&key=YOUR_API_KEY_HERE */
 
 $google_data_json = '{
    "html_attributions" : [],
    "result" : {
       "rating" : 4.4,
+	  "url" : "https://maps.google.com/?cid=5731748223545559336",
 	  "user_ratings_total":"361"	
    },
    "status" : "OK"
@@ -29,11 +30,13 @@ $google_data = json_decode($google_data_json);
 $yelp_data = json_decode($yelp_data_json);
 $google_rating = $google_data->result->rating;
 $google_review_count = $google_data->result->user_ratings_total;
+$google_url = $google_data->result->url;
 $google_star_fill_percent = fill_percent($google_rating, 5 );
 var_dump($google_rating);
 
 $yelp_rating = $yelp_data->businesses[0]->rating;
 $yelp_review_count = $yelp_data->businesses[0]->review_count;
+$yelp_url = $yelp_data->businesses[0]->url;
 $yelp_star_fill_percent = fill_percent($yelp_rating, 5);
 var_dump($yelp_rating);
 
@@ -53,36 +56,40 @@ var_dump($yelp_rating);
 	<h1>Penndel Pizza Review</h1>
 	<h2 class="roboto">Find what others are saying about this spot:</h2>
 	<div class="ratings-container">
-		<div class="rating-container">
-			<div class="rating-info">
-				<i class="fa-brands fa-google"></i>
-				<p class="no-m rating-title">Google Maps </p>
-			</div>
-		<div class="score-container">
-			<div class="star-container">
-				<div class="stars-outer">
-					<div class="stars-inner" style="width:<?php echo $google_star_fill_percent ?>"></div>
-					</div>
+		<a class="unstyled-link rating-link" href="<?php echo $google_url;?>" target="_blank">
+			<div class="rating-container">
+				<div class="rating-info">
+					<i class="fa-brands fa-google"></i>
+					<p class="no-m rating-title">Google Maps </p>
 				</div>
-			<p class="rating-number" ><?php echo $google_rating ?> / 5</p>
-			<p class="no-m text-align-center review-count"><?php echo $google_review_count ?> reviews</p>
-			</div>
-		</div>
-		<div class="rating-container">
-			<div class="rating-info">
-				<i class="fa-brands fa-yelp"></i>
-				<p class="no-m rating-title">Yelp</p>
-			</div>
-		<div class="score-container">
-			<div class="star-container">
-				<div class="stars-outer">
-					<div class="stars-inner" style="width:<?php echo $yelp_star_fill_percent ?>"></div>
+			<div class="score-container">
+				<div class="star-container">
+					<div class="stars-outer">
+						<div class="stars-inner" style="width:<?php echo $google_star_fill_percent ?>"></div>
+						</div>
 					</div>
+				<p class="rating-number" ><?php echo $google_rating ?> / 5</p>
+				<p class="no-m text-align-center review-count"><?php echo $google_review_count ?> reviews</p>
+				</div>
 			</div>
-			<p class="rating-number" ><?php echo $yelp_rating ?> / 5</p>
-			<p class="no-m text-align-center review-count"><?php echo $yelp_review_count ?> reviews</p>
+			</a>
+		<a class="unstyled-link rating-link" href="<?php echo $yelp_url;?>" target="_blank">
+			<div class="rating-container">
+				<div class="rating-info">
+					<i class="fa-brands fa-yelp"></i>
+					<p class="no-m rating-title">Yelp</p>
+				</div>
+			<div class="score-container">
+				<div class="star-container">
+					<div class="stars-outer">
+						<div class="stars-inner" style="width:<?php echo $yelp_star_fill_percent ?>"></div>
+						</div>
+				</div>
+				<p class="rating-number" ><?php echo $yelp_rating ?> / 5</p>
+				<p class="no-m text-align-center review-count"><?php echo $yelp_review_count ?> reviews</p>
+				</div>
 			</div>
-		</div>
+		</a>
 	</div>
 
 	<img src="./maps-penndel-example.PNG" alt="">
