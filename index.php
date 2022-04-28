@@ -32,13 +32,11 @@ $google_rating = $google_data->result->rating;
 $google_review_count = $google_data->result->user_ratings_total;
 $google_url = $google_data->result->url;
 $google_star_fill_percent = fill_percent($google_rating, 5 );
-var_dump($google_rating);
 
 $yelp_rating = $yelp_data->businesses[0]->rating;
 $yelp_review_count = $yelp_data->businesses[0]->review_count;
 $yelp_url = $yelp_data->businesses[0]->url;
 $yelp_star_fill_percent = fill_percent($yelp_rating, 5);
-var_dump($yelp_rating);
 
 ?>
 
@@ -72,7 +70,7 @@ var_dump($yelp_rating);
 				<p class="no-m text-align-center review-count"><?php echo $google_review_count ?> reviews</p>
 				</div>
 			</div>
-			</a>
+		</a>
 		<a class="unstyled-link rating-link" href="<?php echo $yelp_url;?>" target="_blank">
 			<div class="rating-container">
 				<div class="rating-info">
